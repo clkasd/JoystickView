@@ -45,3 +45,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
 }
+
+apply from: 'https://raw.githubusercontent.com/clkasd/JoystickView/master/JCenter/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/clkasd/JoystickView/master/JCenter/bintrayv1.gradle'
