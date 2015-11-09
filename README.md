@@ -34,4 +34,8 @@ And from your java class set joystickChangeListener:
 
 ![](https://github.com/clkasd/JoystickView/blob/master/readmeImages/2015-11-09%2008.04.34.png)
 
+# Installion
+You can either add as a module or directly add to build.gradle file as shown below:
+
+        compile 'com.developwear:joystickviewlib:1.0.1'
 
