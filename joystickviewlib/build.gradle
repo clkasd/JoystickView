@@ -1,27 +1,8 @@
 apply plugin: 'com.android.library'
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'JoystickView'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
-    publishedGroupId = 'com.developwear.joystickview'
-    libraryName = 'JoystickView'
-    artifact = 'joystickView'
-
-    libraryDescription = 'A JoystickView for Android'
-
-    siteUrl = 'https://github.com/clkasd/JoystickView'
-    gitUrl = 'https://github.com/clkasd/JoystickView.git'
-
-    libraryVersion = '1.0'
-
-    developerId = 'clkasd'
-    developerName = 'Aykut Celik'
-    developerEmail = 'aykut.celik@live.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
+version = "1.0.1"
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -30,7 +11,7 @@ android {
         minSdkVersion 18
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -39,12 +20,81 @@ android {
         }
     }
 }
+def siteUrl = 'https://github.com/clkasd/JoystickView'      // Homepage URL of the library
+def gitUrl = 'https://github.com/clkasd/JoystickView.git'   // Git repository URL
+group = "com.developwear"
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
 
+                // Add your description here
+                name 'A JoystickView for android'
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'clkasd'
+                        name 'Aykut Celik'
+                        email 'aykut.celik@live.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
+        }
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
 }
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
 
-apply from: 'https://raw.githubusercontent.com/clkasd/JoystickView/master/JCenter/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/clkasd/JoystickView/master/JCenter/bintrayv1.gradle'
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "JoystickView"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
+}
