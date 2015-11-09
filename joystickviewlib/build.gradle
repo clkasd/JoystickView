@@ -1,5 +1,27 @@
 apply plugin: 'com.android.library'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'JoystickView'
 
+    publishedGroupId = 'com.developwear.joystickview'
+    libraryName = 'JoystickView'
+    artifact = 'joystickView'
+
+    libraryDescription = 'A JoystickView for Android'
+
+    siteUrl = 'https://github.com/clkasd/JoystickView'
+    gitUrl = 'https://github.com/clkasd/JoystickView.git'
+
+    libraryVersion = '1.0'
+
+    developerId = 'clkasd'
+    developerName = 'Aykut Celik'
+    developerEmail = 'aykut.celik@live.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
