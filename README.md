@@ -1,5 +1,5 @@
-# JoystickView
-JoystickView for Android
+# JoystickView 
+A JoystickView library for Android with an example
 
 Joystick controller for android applications.
 
